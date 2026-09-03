@@ -1,6 +1,8 @@
 export const site = {
-  name: "Alex Hart",
-  role: "Frontend Engineer",
+  name: "Youssef Saleh",
+  role: "Software Engineer",
+  brief:
+    "Full-Stack Developer skilled in React.js, Next.js, Node.js, NestJS, and Java Spring Boot, experienced in building scalable web applications, REST APIs, and responsive UIs with clean, maintainable code.",
   email: "hello@alexhart.dev",
   location: "Remote / Europe",
   availability: "Open for select projects",

@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #05060a;
-  --bg-soft: #0b0d14;
+  --bg: #08070f;
+  --bg-soft: #100f18;
   --ink: #f4f1ea;
-  --muted: #9a978f;
+  --muted: #8d889c;
   --line: rgba(255, 255, 255, 0.08);
   --ice: #7dd3fc;
   --violet: #c4b5fd;
@@ -62,15 +62,190 @@ section[id] {
 }
 
 .spotlight {
+  display: none;
+}
+
+.lamp-blend {
   pointer-events: none;
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 2;
-  background: radial-gradient(
-    520px circle at var(--mx, 50%) var(--my, 18%),
-    rgba(255, 255, 255, 0.07),
-    transparent 46%
+  z-index: 12;
+  mix-blend-mode: plus-lighter;
+}
+
+.lamp-fixture-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 13;
+  overflow: hidden;
+}
+
+.lamp-pendulum {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: min(78vw, 860px);
+  margin-left: calc(min(78vw, 860px) / -2);
+  will-change: transform;
+}
+
+.lamp-cone {
+  position: absolute;
+  top: 82px;
+  bottom: -10%;
+  left: 50%;
+  width: 100%;
+  margin-left: -50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 255, 0.95) 0%,
+    rgba(220, 206, 255, 0.55) 16%,
+    rgba(196, 181, 253, 0.22) 38%,
+    rgba(168, 150, 230, 0.08) 62%,
+    transparent 82%
   );
+  clip-path: polygon(47.8% 0, 52.2% 0, 100% 100%, 0 100%);
+  filter: blur(14px);
+}
+
+.lamp-cone-visible {
+  position: absolute;
+  top: 82px;
+  bottom: -10%;
+  left: 50%;
+  width: 100%;
+  margin-left: -50%;
+  background: linear-gradient(
+    180deg,
+    rgba(232, 220, 255, 0.35) 0%,
+    rgba(196, 181, 253, 0.16) 22%,
+    rgba(168, 150, 230, 0.06) 48%,
+    transparent 72%
+  );
+  clip-path: polygon(47.8% 0, 52.2% 0, 100% 100%, 0 100%);
+  filter: blur(18px);
+}
+
+.lamp-svg {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+}
+
+.lamp-cord {
+  position: absolute;
+  top: 0;
+  left: calc(50% + 140px);
+  z-index: 8;
+  display: none;
+  width: 44px;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+
+.lamp-cord:active,
+.lamp-cord.is-pulling {
+  cursor: grabbing;
+}
+
+.lamp-cord-mount {
+  width: 14px;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f4f1ea 0%, #9a96a8 48%, #5c5868 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.lamp-cord-line {
+  width: 1.5px;
+  height: 112px;
+  margin-top: -1px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #7d7a88 0%,
+    #f3f0f8 42%,
+    #b8b4c4 58%,
+    #5a5666 100%
+  );
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  transform-origin: top center;
+}
+
+.lamp-cord-handle {
+  display: flex;
+  height: 42px;
+  width: 12px;
+  margin-top: -2px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 38%),
+    linear-gradient(90deg, #8b8798, #ece8f4 46%, #6f6b7c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 8px 18px rgba(0, 0, 0, 0.32);
+  pointer-events: none;
+}
+
+.lamp-cord-led {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #c4b5fd;
+  box-shadow:
+    0 0 8px 2px rgba(196, 181, 253, 0.85),
+    0 0 16px rgba(196, 181, 253, 0.45);
+  transition: background 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.hero.lamp-off .lamp-cord-led {
+  background: #3d3a48;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .lamp-cord {
+    display: flex;
+    left: calc(50% + 310px);
+  }
+}
+
+.hero.lamp-off .hero-role,
+.hero.lamp-off .hero-brief {
+  opacity: 0.38;
+  filter: brightness(0.65);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.hero-role,
+.hero-brief {
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.hero {
+  isolation: isolate;
+}
+
+.hero-name {
+  color: #2a2838;
+}
+
+.hero-role {
+  color: #c4b5fd;
 }
 
 .orb {
