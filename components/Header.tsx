@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { gsap } from "@/lib/motion";
 import { site } from "@/lib/site";
 
 export function Header() {
   const header = useRef<HTMLElement>(null);
+  const resume = useRef<HTMLAnchorElement>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -14,17 +15,46 @@ export function Header() {
 
     const ctx = gsap.context(() => {
       gsap.from(".nav-item", {
-        y: -18,
+        y: -28,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.06,
+        duration: 0.85,
+        stagger: 0.07,
         ease: "power3.out",
-        delay: 0.15,
+        delay: 0.2,
       });
     }, el);
 
-    return () => ctx.revert();
+    let last = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const hide = y > last && y > 80;
+      gsap.to(el, { y: hide ? -90 : 0, duration: 0.45, ease: "power3.out" });
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      ctx.revert();
+    };
   }, []);
+
+  const onMove = (event: PointerEvent<HTMLAnchorElement>) => {
+    const el = resume.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    gsap.to(el, {
+      x: (event.clientX - rect.left - rect.width / 2) * 0.3,
+      y: (event.clientY - rect.top - rect.height / 2) * 0.3,
+      duration: 0.3,
+      ease: "power3.out",
+    });
+  };
+
+  const onLeave = () => {
+    if (!resume.current) return;
+    gsap.to(resume.current, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.45)" });
+  };
 
   return (
     <header ref={header} className="fixed inset-x-0 top-0 z-50">
@@ -34,7 +64,7 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="nav-item text-sm text-white/55 transition-colors hover:text-white"
+              className="nav-item text-sm text-white/50 transition-colors hover:text-white/85"
             >
               {item.label}
             </a>
@@ -56,8 +86,11 @@ export function Header() {
             Available
           </span>
           <a
+            ref={resume}
             href="#contact"
-            className="rounded-full bg-[#c4b5fd] px-4 py-1.5 text-sm font-medium text-[#1b1528]"
+            className="rounded-full bg-[#b7a8d9] px-4 py-1.5 text-sm font-medium text-[#1b1528]"
+            onPointerMove={onMove}
+            onPointerLeave={onLeave}
           >
             Resume
           </a>
@@ -65,7 +98,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-white/8 bg-[#08070f]/90 px-5 py-4 md:hidden">
+        <div className="border-t border-white/8 bg-[#15131c]/92 px-5 py-4 md:hidden">
           {site.nav.map((item) => (
             <a
               key={item.href}

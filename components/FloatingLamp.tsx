@@ -28,10 +28,10 @@ export function FloatingLamp() {
 
     const tween = gsap.fromTo(
       [beamEl, fixtureEl],
-      { rotation: 24 },
+      { rotation: 14 },
       {
-        rotation: -24,
-        duration: 3.4,
+        rotation: -14,
+        duration: 5.6,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
@@ -123,8 +123,8 @@ export function FloatingLamp() {
               strokeWidth="1.2"
             />
             <g className="lamp-bulb">
-              <ellipse cx="36" cy="83" rx="16" ry="5.5" fill="#eadfff" opacity="0.7" />
-              <ellipse cx="36" cy="83" rx="7" ry="2.4" fill="#ffffff" opacity="0.55" />
+              <ellipse cx="36" cy="83" rx="16" ry="5.5" fill="#d8d0ee" opacity="0.55" />
+              <ellipse cx="36" cy="83" rx="7" ry="2.4" fill="#f3efe8" opacity="0.4" />
             </g>
           </svg>
         </div>
