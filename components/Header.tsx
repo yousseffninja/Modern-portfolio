@@ -81,18 +81,16 @@ export function Header() {
         </button>
 
         <div className="nav-item flex items-center gap-3">
-          <span className="hidden items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs text-white/70 sm:inline-flex">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            Available
-          </span>
           <a
             ref={resume}
-            href="#contact"
-            className="rounded-full bg-[#b7a8d9] px-4 py-1.5 text-sm font-medium text-[#1b1528]"
+            href="https://drive.google.com/file/d/1q3OqWzHV9lRefGw-8dsVoqCZc-nnFmH2/view?usp=sharing"
+            className="rounded-full bg-[#b7a8d9] px-4 py-1.5"
             onPointerMove={onMove}
             onPointerLeave={onLeave}
           >
-            Resume
+            <p className="text-sm font-medium text-black">
+              Resume
+            </p>
           </a>
         </div>
       </div>

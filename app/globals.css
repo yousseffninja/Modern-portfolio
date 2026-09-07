@@ -9,6 +9,9 @@
   --ice: #8eb4cc;
   --violet: #b7a8d9;
   --warm: #e0b86a;
+  --card-accent: var(--ice);
+  --bx: -40%;
+  --by: -40%;
 }
 
 @theme inline {
@@ -18,8 +21,6 @@
   --color-ice: var(--ice);
   --color-violet: var(--violet);
   --color-warm: var(--warm);
-  --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
 }
 
 html {
@@ -245,7 +246,6 @@ section[id] {
 .char,
 .word {
   display: inline-block;
-  overflow: hidden;
   vertical-align: bottom;
 }
 

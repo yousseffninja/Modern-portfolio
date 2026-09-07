@@ -76,11 +76,13 @@ export function Contact() {
           <a
             ref={btn}
             href={`mailto:${site.email}`}
-            className="btn-light inline-flex w-fit rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg"
+            className="btn-light inline-flex w-fit rounded-full bg-ink px-6 py-3 "
             onPointerMove={onMove}
             onPointerLeave={onLeave}
           >
-            {site.email}
+            <p className="text-sm font-medium font-black text-[#0a0a0a]">
+              {site.email}
+            </p>
           </a>
           <p className="text-sm leading-relaxed text-muted">
             Available for product sites, systems, and motion work.

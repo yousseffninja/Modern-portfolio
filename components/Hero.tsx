@@ -77,11 +77,6 @@ export function Hero() {
           {site.brief}
         </p>
       </div>
-
-      <div className="hero-scroll absolute bottom-8 z-10 flex items-center gap-3 text-xs tracking-[0.28em] uppercase text-muted">
-        <span className="hero-scroll-line h-px w-10 origin-left bg-white/20" />
-        Scroll
-      </div>
     </section>
   );
 }
